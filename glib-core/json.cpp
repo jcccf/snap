@@ -117,8 +117,8 @@ TStr TJsonVal::GetObjStr(const char *Key, const TStr& DefStr) const {
   return (IsObjKey(Key)) ? KeyValH.GetDat(Key)->GetStr() : DefStr;
 }
   
-PJsonVal TJsonVal::GetValFromLx(TILx& Lx){
-  static TFSet ValExpect=TFSet()|syIdStr|syFlt|syQStr|syLBracket|syLBrace|syRBracket;
+PJsonVal TJsonVal::GetValFromLx(TILx& Lx, TFSet ValExpect){
+  ValExpect=TFSet()|syIdStr|syFlt|syQStr|syLBracket|syLBrace|syRBracket;
   PJsonVal Val=TJsonVal::New();
   if ((Lx.Sym==syIdStr)&&(Lx.Str=="null")){
     Val->PutNull(); Lx.GetSym();
@@ -134,7 +134,7 @@ PJsonVal TJsonVal::GetValFromLx(TILx& Lx){
     Val->PutArr(); Lx.GetSym(ValExpect); // added ValExpect to correctyl parse arrays of floats
     if (Lx.Sym!=syRBracket){
       forever{
-        PJsonVal SubVal=TJsonVal::GetValFromLx(Lx);
+        PJsonVal SubVal=TJsonVal::GetValFromLx(Lx, ValExpect);
         Val->AddToArr(SubVal);
         if (Lx.Sym==syComma){Lx.GetSym(ValExpect);} 
         else if (Lx.Sym==syRBracket){break;} 

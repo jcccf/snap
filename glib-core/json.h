@@ -106,7 +106,7 @@ public:
   TStr GetObjStr(const char *Key, const TStr& DefStr) const;
 
   // (de)serialization
-  static PJsonVal GetValFromLx(TILx& Lx);
+  static PJsonVal GetValFromLx(TILx& Lx, TFSet ValExpect=TFSet()|syIdStr|syFlt|syQStr|syLBracket|syLBrace|syRBracket);
   static PJsonVal GetValFromSIn(const PSIn& SIn);
   static PJsonVal GetValFromStr(const TStr& JsonStr);
   static void AddEscapeChAFromStr(const TStr& Str, TChA& ChA);
