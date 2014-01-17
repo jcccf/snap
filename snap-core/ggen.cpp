@@ -170,7 +170,7 @@ PUNGraph GenRewire(const PUNGraph& OrigGraph, const int& NSwitch, TRnd& Rnd) {
   Graph.Reserve(Nodes, -1);
   TExeTm ExeTm;
   // generate a graph that satisfies the constraints
-  printf("Randomizing edges (%d, %d)...\n", Nodes, Edges);
+  // printf("Randomizing edges (%d, %d)...\n", Nodes, Edges);
   TIntPrSet EdgeSet(Edges);
   for (TUNGraph::TNodeI NI = OrigGraph->BegNI(); NI < OrigGraph->EndNI(); NI++) {
     const int NId = NI.GetId();
@@ -197,11 +197,11 @@ PUNGraph GenRewire(const PUNGraph& OrigGraph, const int& NSwitch, TRnd& Rnd) {
       EdgeSet.AddKey(TIntPr(NewE2));
     } else { skip++; }
     if (swps % Edges == 0) {
-      printf("\r  %uk/%uk: %uk skip [%s]", swps/1000u, 2*uint(Edges)*uint(NSwitch)/1000u, skip/1000u, ExeTm.GetStr());
+      // printf("\r  %uk/%uk: %uk skip [%s]", swps/1000u, 2*uint(Edges)*uint(NSwitch)/1000u, skip/1000u, ExeTm.GetStr());
       if (ExeTm.GetSecs() > 2*3600) { printf(" *** Time limit!\n"); break; } // time limit 2 hours
     }
   }
-  printf("\r  total %uk switchings attempted, %uk skiped  [%s]\n", 2*uint(Edges)*uint(NSwitch)/1000u, skip/1000u, ExeTm.GetStr());
+  // printf("\r  total %uk switchings attempted, %uk skiped  [%s]\n", 2*uint(Edges)*uint(NSwitch)/1000u, skip/1000u, ExeTm.GetStr());
   for (int e = 0; e < EdgeSet.Len(); e++) {
     Graph.AddEdge(EdgeSet[e].Val1, EdgeSet[e].Val2); }
   return GraphPt;
